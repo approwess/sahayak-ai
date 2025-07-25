@@ -2,12 +2,10 @@ from langchain_core.messages import BaseMessage
 from typing import Annotated, Sequence, TypedDict, Literal
 from langgraph.graph.message import add_messages
 from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
 import os
 
-# Force API key into env if not present (fallback for cloud default)
-if not os.getenv("GOOGLE_API_KEY"):
-    os.environ["GOOGLE_API_KEY"] = "AIzaSyCOGJKmC6CeabaS7aoezbcJ_UpgZhg0NsM"  # optional override
-
+load_dotenv()
 
 # Initialize Gemini
 llm = ChatGoogleGenerativeAI(
