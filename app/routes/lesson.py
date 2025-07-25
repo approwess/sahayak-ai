@@ -33,8 +33,6 @@ def generate_lesson():
         special_needs = data.get('special_needs', 'Standard differentiation')
         user_message = data.get('message', 'Generate a lesson plan')
 
-        print(medium)
-
         if not all([subject, grades, topic, medium]):
             return jsonify({"error": "Missing required fields"}), 400
 
