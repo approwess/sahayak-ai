@@ -1,0 +1,173 @@
+[debug] [2025-07-25T10:20:36.742Z] ----------------------------------------------------------------------
+[debug] [2025-07-25T10:20:36.746Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init functions
+[debug] [2025-07-25T10:20:36.747Z] CLI Version:   14.11.1
+[debug] [2025-07-25T10:20:36.747Z] Platform:      win32
+[debug] [2025-07-25T10:20:36.747Z] Node Version:  v22.13.0
+[debug] [2025-07-25T10:20:36.747Z] Time:          Fri Jul 25 2025 15:50:36 GMT+0530 (India Standard Time)
+[debug] [2025-07-25T10:20:36.747Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-25T10:20:36.753Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-25T10:20:36.753Z] > authorizing via signed-in user (ajinkya.bandagale@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\PythonProjects\sahayak
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-07-25T10:20:48.875Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:20:48.875Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:20:48.877Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2025-07-25T10:20:49.808Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-07-25T10:20:49.808Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project sahayak-ai-6f9cc (Sahayak AI) 
+[info] 
+=== Functions Setup
+[debug] [2025-07-25T10:21:00.045Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-25T10:21:00.046Z] > authorizing via signed-in user (ajinkya.bandagale@gmail.com)
+[debug] [2025-07-25T10:21:00.046Z] [iam] checking project sahayak-ai-6f9cc for permissions ["firebase.projects.get"]
+[debug] [2025-07-25T10:21:00.047Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:21:00.047Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:21:00.047Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions [none]
+[debug] [2025-07-25T10:21:00.047Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions x-goog-quota-user=projects/sahayak-ai-6f9cc
+[debug] [2025-07-25T10:21:00.047Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-07-25T10:21:01.977Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions 200
+[debug] [2025-07-25T10:21:01.977Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-07-25T10:21:01.979Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:21:01.979Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:21:01.980Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:21:01.980Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:21:01.980Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-07-25T10:21:01.980Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/sahayak-ai-6f9cc
+[debug] [2025-07-25T10:21:01.982Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/runtimeconfig.googleapis.com [none]
+[debug] [2025-07-25T10:21:01.982Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/sahayak-ai-6f9cc
+[debug] [2025-07-25T10:21:04.411Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/runtimeconfig.googleapis.com 200
+[debug] [2025-07-25T10:21:04.411Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2025-07-25T10:21:04.429Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/cloudfunctions.googleapis.com 200
+[debug] [2025-07-25T10:21:04.429Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-07-25T10:21:04.430Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:21:04.430Z] Checked if tokens are valid: true, expires at: 1753442365411
+[debug] [2025-07-25T10:21:04.430Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/cloudfunctions.googleapis.com:enable [none]
+[debug] [2025-07-25T10:21:04.430Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/cloudfunctions.googleapis.com:enable x-goog-quota-user=projects/sahayak-ai-6f9cc
+[debug] [2025-07-25T10:21:05.112Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/cloudfunctions.googleapis.com:enable 200
+[debug] [2025-07-25T10:21:05.112Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/sahayak-ai-6f9cc/services/cloudfunctions.googleapis.com:enable [omitted]
+[info] Let's create a new codebase for your functions.
+[info] A directory corresponding to the codebase will be created in your project
+[info] with sample code pre-configured.
+
+[info] See https://firebase.google.com/docs/functions/organize-functions for
+[info] more information on organizing your functions using codebases.
+
+[info] Functions can be deployed with firebase deploy.
+
+[info] +  Wrote functions/requirements.txt 
+[info] +  Wrote functions/.gitignore 
+[info] +  Wrote functions/main.py 
+[debug] [2025-07-25T10:22:06.196Z] Running command with virtualenv: command="D:\PythonProjects\sahayak\functions\venv\Scripts\activate.bat", args=["","&&","pip3","install","--upgrade","pip"]
+[debug] [2025-07-25T10:22:07.878Z] Error: spawn "D:\PythonProjects\sahayak\functions\venv\Scripts\activate.bat" ENOENT
+    at notFoundError (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:6:26)
+    at verifyENOENT (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:40:16)
+    at cp.emit (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:27:25)
+    at ChildProcess._handle.onexit (node:internal/child_process:293:12)
+    at Process.callbackTrampoline (node:internal/async_hooks:130:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-07-25T11:17:26.488Z] ----------------------------------------------------------------------
+[debug] [2025-07-25T11:17:26.490Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:delete api --region us-central1
+[debug] [2025-07-25T11:17:26.490Z] CLI Version:   14.11.1
+[debug] [2025-07-25T11:17:26.490Z] Platform:      win32
+[debug] [2025-07-25T11:17:26.490Z] Node Version:  v22.13.0
+[debug] [2025-07-25T11:17:26.490Z] Time:          Fri Jul 25 2025 16:47:26 GMT+0530 (India Standard Time)
+[debug] [2025-07-25T11:17:26.491Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-25T11:17:26.624Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-25T11:17:26.625Z] > authorizing via signed-in user (ajinkya.bandagale@gmail.com)
+[debug] [2025-07-25T11:17:26.625Z] [iam] checking project sahayak-ai-6f9cc for permissions ["cloudfunctions.functions.delete","cloudfunctions.functions.list","firebase.projects.get"]
+[debug] [2025-07-25T11:17:26.626Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:26.626Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:26.626Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions [none]
+[debug] [2025-07-25T11:17:26.626Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions x-goog-quota-user=projects/sahayak-ai-6f9cc
+[debug] [2025-07-25T11:17:26.626Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions {"permissions":["cloudfunctions.functions.delete","cloudfunctions.functions.list","firebase.projects.get"]}
+[debug] [2025-07-25T11:17:28.316Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions 200
+[debug] [2025-07-25T11:17:28.317Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions {"permissions":["cloudfunctions.functions.delete","cloudfunctions.functions.list","firebase.projects.get"]}
+[debug] [2025-07-25T11:17:28.318Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:28.318Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:28.318Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:28.318Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:28.319Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sahayak-ai-6f9cc/adminSdkConfig [none]
+[debug] [2025-07-25T11:17:28.321Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/sahayak-ai-6f9cc/locations/-/functions [none]
+[debug] [2025-07-25T11:17:29.226Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sahayak-ai-6f9cc/adminSdkConfig 200
+[debug] [2025-07-25T11:17:29.227Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sahayak-ai-6f9cc/adminSdkConfig {"projectId":"sahayak-ai-6f9cc","databaseURL":"https://sahayak-ai-6f9cc-default-rtdb.firebaseio.com","storageBucket":"sahayak-ai-6f9cc.firebasestorage.app"}
+[debug] [2025-07-25T11:17:29.288Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/sahayak-ai-6f9cc/locations/-/functions 200
+[debug] [2025-07-25T11:17:29.288Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/sahayak-ai-6f9cc/locations/-/functions {}
+[debug] [2025-07-25T11:17:29.289Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:29.289Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:29.289Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/sahayak-ai-6f9cc/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2025-07-25T11:17:31.023Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/sahayak-ai-6f9cc/locations/-/functions 200
+[debug] [2025-07-25T11:17:31.023Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/sahayak-ai-6f9cc/locations/-/functions {}
+[debug] [2025-07-25T11:17:31.210Z] TypeError: Cannot convert undefined or null to object
+    at Function.values (<anonymous>)
+    at C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\backend.js:255:37
+    at Array.reduce (<anonymous>)
+    at allEndpoints (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\backend.js:254:45)
+    at Object.matchingBackend (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\backend.js:278:28)
+    at Object.createDeploymentPlan (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\planner.js:78:27)
+    at Command.actionFn (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\functions-delete.js:43:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-07-25T11:17:38.846Z] ----------------------------------------------------------------------
+[debug] [2025-07-25T11:17:38.849Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:delete api --region us-central1
+[debug] [2025-07-25T11:17:38.849Z] CLI Version:   14.11.1
+[debug] [2025-07-25T11:17:38.849Z] Platform:      win32
+[debug] [2025-07-25T11:17:38.849Z] Node Version:  v22.13.0
+[debug] [2025-07-25T11:17:38.850Z] Time:          Fri Jul 25 2025 16:47:38 GMT+0530 (India Standard Time)
+[debug] [2025-07-25T11:17:38.850Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-25T11:17:38.986Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-25T11:17:38.986Z] > authorizing via signed-in user (ajinkya.bandagale@gmail.com)
+[debug] [2025-07-25T11:17:38.986Z] [iam] checking project sahayak-ai-6f9cc for permissions ["cloudfunctions.functions.delete","cloudfunctions.functions.list","firebase.projects.get"]
+[debug] [2025-07-25T11:17:38.987Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:38.987Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:38.988Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions [none]
+[debug] [2025-07-25T11:17:38.988Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions x-goog-quota-user=projects/sahayak-ai-6f9cc
+[debug] [2025-07-25T11:17:38.988Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions {"permissions":["cloudfunctions.functions.delete","cloudfunctions.functions.list","firebase.projects.get"]}
+[debug] [2025-07-25T11:17:40.651Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions 200
+[debug] [2025-07-25T11:17:40.651Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sahayak-ai-6f9cc:testIamPermissions {"permissions":["cloudfunctions.functions.delete","cloudfunctions.functions.list","firebase.projects.get"]}
+[debug] [2025-07-25T11:17:40.652Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:40.652Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:40.652Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:40.652Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:40.652Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sahayak-ai-6f9cc/adminSdkConfig [none]
+[debug] [2025-07-25T11:17:40.653Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/sahayak-ai-6f9cc/locations/-/functions [none]
+[debug] [2025-07-25T11:17:41.318Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sahayak-ai-6f9cc/adminSdkConfig 200
+[debug] [2025-07-25T11:17:41.318Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sahayak-ai-6f9cc/adminSdkConfig {"projectId":"sahayak-ai-6f9cc","databaseURL":"https://sahayak-ai-6f9cc-default-rtdb.firebaseio.com","storageBucket":"sahayak-ai-6f9cc.firebasestorage.app"}
+[debug] [2025-07-25T11:17:41.620Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/sahayak-ai-6f9cc/locations/-/functions 200
+[debug] [2025-07-25T11:17:41.621Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/sahayak-ai-6f9cc/locations/-/functions {}
+[debug] [2025-07-25T11:17:41.621Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:41.622Z] Checked if tokens are valid: true, expires at: 1753445066156
+[debug] [2025-07-25T11:17:41.622Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/sahayak-ai-6f9cc/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2025-07-25T11:17:43.305Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/sahayak-ai-6f9cc/locations/-/functions 200
+[debug] [2025-07-25T11:17:43.305Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/sahayak-ai-6f9cc/locations/-/functions {}
+[debug] [2025-07-25T11:17:43.525Z] TypeError: Cannot convert undefined or null to object
+    at Function.values (<anonymous>)
+    at C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\backend.js:255:37
+    at Array.reduce (<anonymous>)
+    at allEndpoints (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\backend.js:254:45)
+    at Object.matchingBackend (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\backend.js:278:28)
+    at Object.createDeploymentPlan (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\planner.js:78:27)
+    at Command.actionFn (C:\Users\ajink\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\functions-delete.js:43:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: An unexpected error has occurred.

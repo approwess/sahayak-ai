@@ -3,13 +3,14 @@ from typing import Annotated, Sequence, TypedDict, Literal
 from langgraph.graph.message import add_messages
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
+from app.services.resource_finder import ResourceFinder
 import os
 
 load_dotenv()
 
 # Initialize Gemini
 llm = ChatGoogleGenerativeAI(
-    model="gemini-1.5-pro",
+    model="gemini-1.5-flash",
     google_api_key=os.getenv("GOOGLE_API_KEY")
 )
 
@@ -19,6 +20,7 @@ class AgentState(TypedDict):
     subject: str
     grades: str
     topic: str
+    medium: str
     special_needs: str
     class_type: Literal["single", "multigrade"]
 
@@ -34,31 +36,90 @@ def determine_class_type(state: AgentState):
     else:
         return {"class_type": "single"}
 
-def generate_single_grade_lesson(state: AgentState):
-    """Generate lesson plan for single grade"""
-    last_message = state['messages'][-1].content
+def generate_multigrade_lesson(state: AgentState):
+    """Generate lesson plan for multiple grade"""
+    # last_message = state['messages'][-1].content
+
+    grades = state.get('grades', '1')
+    medium = state.get('medium', 'Hindi')  # Add medium to your AgentState
+    topic = state.get('topic', 'General Learning')
+    subject = state.get('subject', 'General')
+
+    resource_finder = ResourceFinder()
+
+    matching_resources = resource_finder.find_links_by_criteria(
+        grades=grades,
+        medium=medium,
+        subject=subject,
+        topic=topic
+    )
+
+    print(f"🔍 Found {len(matching_resources)} matching resources for:")
+
+    resources_text = ""
+    if matching_resources:
+        resources_text = "\n\nRelevant Educational Resources:\n"
+        for resource in matching_resources:
+            resources_text += f"For Grade {resource['grade']} - {resource['medium']} medium chapters use this link for balbharti textbook {resource['link']} \n"
+            # for link in resource['links']:
+            #     resources_text += f"  • {link['title']}: {link['url']} ({link['type']})\n"
     
     prompt = f"""
-    Act as an expert Professor Agent for single-grade classroom lesson planning.
-    
-    Subject: {state.get('subject', 'General')}
-    Grade Level: {state.get('grades', 'Grade 1')}
-    Topic: {state.get('topic', 'General Learning')}
-    Special Needs: {state.get('special_needs', 'Standard differentiation')}
-    
-    Request: {last_message}
-    
-    Generate a comprehensive one-week lesson plan for a SINGLE GRADE classroom that includes:
-    1. Clear, grade-appropriate learning objectives
-    2. Daily activities sequenced for optimal learning
-    3. Assessment strategies aligned to grade level
-    4. Materials and resources needed
-    5. Extension activities for advanced learners
-    6. Support strategies for struggling students
-    
-    Focus on depth rather than differentiation across grades.
-    Format as a structured, teacher-ready outline.
+    I am a teacher handling a multigrade classroom. Please generate a structured, integrated lesson plan based on the following inputs:
+
+    Core Input:
+
+    Grades: {grades}
+
+    Chapter: {topic}
+
+    Subject: {subject}
+
+    Board: {state.get('board', 'Maharashtra State Board')}
+
+    Medium: {medium}
+
+    Student Learning Levels: {state.get('learning_levels', [])}
+
+    Instructions for Lesson Plan Generation:
+
+    1. Determine Paired Grade-Level Topics from Official Textbooks:
+
+    * First, analyze the core concept of the provided Starting Grade & Topic.
+    * Based on the Starting Grade, find the corresponding chapter titles for the other grade(s) from the official textbook index (e.g., 'Balbharati Mathematics textbook index'). The pairing will follow this logic:
+    * If a Grade 1 topic is provided, find the progressive skill in the Grade 2 textbook.
+    * If a Grade 2 topic is provided, find the foundational skill in the Grade 1 textbook.
+    * If a Grade 3 topic is provided, find the progressive skills in BOTH the Grade 4 and Grade 5 textbooks.
+    * If a Grade 4 topic is provided, find the related skills in BOTH the Grade 3 and Grade 5 textbooks.
+    * If a Grade 5 topic is provided, find the related skills in BOTH the Grade 3 and Grade 4 textbooks.
+    * You must use the exact chapter titles from the textbook index for all topics.
+
+    {resources_text}
+
+    2. Identify a Common Theme: Based on the paired topics (two or three grades), identify a single, unifying theme for the lesson.
+
+    3. Create Differentiated Objectives: Write separate, clear learning objectives for what students in each grade level should be able to do by the end of the lesson.
+
+    4. Structure the Lesson Procedure (40 minutes): The plan must follow this specific four-part structure:
+
+    * Combined Hook: An initial activity that engages all grades together under the common theme.
+
+    * Shared Introduction: A core teaching segment that introduces the concepts sequentially, building from the simplest to the most complex.
+
+    * Differentiated Group Activities: Design distinct activities for each grade level.
+
+    * Shared Wrap-up and Evaluation: A concluding activity to quickly assess all grades on their respective objectives.
+
+    5. Keep it Practical: Ensure the materials needed are simple and the activities are suitable for a standard classroom environment.
+
+    6. Differentiated Targeted Activities (Mandatory):
+
+    * Based on the provided student learning levels, design distinct 10-minute activities for Beginner, Intermediate, and Advanced groups.
+
+    * Key Principle: For the Beginner group, ensure activities teach one concept at a time. For the Advanced group, the activity should challenge them to combine concepts creatively
     """
+
+    print(prompt)
     
     response = llm.invoke(prompt)
     return {
@@ -66,7 +127,7 @@ def generate_single_grade_lesson(state: AgentState):
         "messages": state['messages']
     }
 
-def generate_multigrade_lesson(state: AgentState):
+def generate_single_grade_lesson(state: AgentState):
     """Generate lesson plan for multigrade classroom"""
     last_message = state['messages'][-1].content
     
