@@ -4,8 +4,6 @@ from langgraph.graph.message import add_messages
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from app.services.resource_finder import ResourceFinder
-from typing import TypedDict, Optional, List, Dict
-from jinja2 import Template
 import os
 
 load_dotenv()
@@ -25,15 +23,6 @@ class AgentState(TypedDict):
     medium: str
     special_needs: str
     class_type: Literal["single", "multigrade"]
-    lesson_plan: Optional[str]
-
-    generate_visuals: Optional[bool]
-    image_requirements: Optional[List[Dict]]
-    generated_images: Optional[Dict[str, str]]
-    visual_document_path: Optional[str]
-    visual_generation_errors: Optional[List[str]]
-    image_style: Optional[str]
-    document_format: Optional[str]
 
 def determine_class_type(state: AgentState):
     """Determine if class is single or multigrade based on grades input"""
@@ -55,7 +44,6 @@ def generate_multigrade_lesson(state: AgentState):
     medium = state.get('medium', 'Hindi')  # Add medium to your AgentState
     topic = state.get('topic', 'General Learning')
     subject = state.get('subject', 'General')
-    grade_list = [g.strip() for g in grades.split(",") if g.strip()]
 
     resource_finder = ResourceFinder()
 
@@ -75,26 +63,70 @@ def generate_multigrade_lesson(state: AgentState):
             resources_text += f"For Grade {resource['grade']} - {resource['medium']} medium chapters use this link for balbharti textbook {resource['link']} \n"
             # for link in resource['links']:
             #     resources_text += f"  • {link['title']}: {link['url']} ({link['type']})\n"
-    prompt = ""
-    try:
-        prompt_path = os.path.join(os.path.dirname(__file__), 'prompts', 'multigrade_lesson_prompt.md')
-        with open(prompt_path, 'r', encoding='utf-8') as f:
-            raw_prompt = f.read()
+    
+    prompt = f"""
+    You are an expert in pedagogy for Grades 1 to 5 in Maharashtra State Board primary schools.
+    You understand the Balbharati textbooks and the SCERT Pune syllabus and align all plans with NEP 2020 and NIPUN Bharat goals.
 
-        template = Template(raw_prompt)
-        rendered_prompt = template.render(
-            grades=grade_list,
-            subject=subject,
-            topic=topic,
-            medium=medium,
-            resources_text=resources_text,
-            learning_levels=[]
-        )
-        prompt = f"<pre>{rendered_prompt}</pre>"
+    Design a lesson plan for the following:
 
-        # print("prompt" + prompt)
-    except Exception as e:
-        print("error" + str(e))
+    Grade: {grades}
+
+    Subject: {subject}
+
+    Topic/Chapter Name: {topic}
+
+    {resources_text}
+
+    The lesson plan should follow this structure and include the following elements in detail:
+
+    A. Lesson Plan Structure
+    Hook (attention-grabbing, relatable to Maharashtra children, age-appropriate)
+
+    Learning Objectives (in simple English)
+
+    Prior Knowledge Questions (5 short, interesting checks with answer keys)
+
+    Keywords and Key Ideas
+
+    What Matters Most (core concept of the lesson)
+
+    Teacher Script for Direct Instruction (detailed)
+
+    Common Misconceptions Table (with strategies to correct them)
+
+    Think-Pair-Share activity (engaging, age-appropriate)
+
+    Check For Understanding (CFU) questions with answer keys
+
+    Differentiated Practice: Easy / Medium / Hard
+
+    Exit Ticket Question
+
+    B. Additional Support Materials (Include as attachments or detailed in the response)
+    A 10-slide presentation copy (teacher-friendly text, simple visuals, projectable)
+
+    A short song or jingle to help kids remember the topic
+
+    A memory story that simplifies the core idea using characters or a situation
+
+    2–3 relevant YouTube video links for visual reinforcement
+
+    A one-page parent note in English explaining what was taught and how they can support at home
+
+    A teacher preparation reading note in listicle format (5–7 points) to help understand the topic before entering the class
+
+    C. Pedagogical Alignment
+    Follow Gradual Release of Responsibility (I Do, We Do, You Do)
+
+    Include Teach Like A Champion strategies where suitable (label them)
+
+    Keep in mind that students are first-generation English learners and are 1 level below grade in comprehension
+
+    Keep language simple, instructions clear, and activities engaging
+    """
+
+    print(prompt)
     
     response = llm.invoke(prompt)
     return {
