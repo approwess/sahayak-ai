@@ -7,9 +7,17 @@ from pathlib import Path
 import base64
 import hashlib
 from dotenv import load_dotenv
+from google.cloud import storage
+from langchain_google_genai import ChatGoogleGenerativeAI
 import os
+from jinja2 import Template
 
 load_dotenv()
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash",
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 try:
     from google.cloud import aiplatform
@@ -194,6 +202,140 @@ class VisualDocumentGenerator:
         
         return enhanced_prompt
     
+    def generate_content(self, resources: list) -> list:
+        generated_contents = []
+        
+        for resource in resources:
+            if resource['type'] == 'image':
+                if not isinstance(resource, dict) or 'description' not in resource or 'type' not in resource:
+                    print(f"Invalid resource format: {resource}")
+                    continue
+                
+                prompt = resource['description']
+                section_name = resource['name']
+                
+                # image_path = self.create_image_storage_bucket(prompt, section_name)
+                # if image_path:
+                #     generated_contents.append({
+                #         "name": section_name,
+                #         "description": resource['description'],
+                #         "type": resource['type'],
+                #         "unique_id": resource['unique_id'],
+                #         "url": image_path
+                #     })
+            elif resource['type'] == 'audio':
+                prompt = resource['description']
+                section_name = resource['name']
+
+                # audio_path = self.create_audio_storage_bucket(prompt, section_name)
+                # if audio_path:
+                #     generated_contents.append({
+                #         "name": section_name,
+                #         "description": resource['description'],
+                #         "type": resource['type'],
+                #         "unique_id": resource['unique_id'],
+                #         "url": audio_path
+                #     })
+        
+        return generated_contents
+    
+    def create_audio_storage_bucket(self, prompt: str, section_name: str) -> Optional[str]:
+        """Generate audio using Vertex AI and upload to Google Cloud Storage (UBLA compatible)"""
+        try:
+            prompt_path = os.path.join(os.path.dirname(__file__), 'prompts', 'generate_audio_text.md')
+            with open(prompt_path, 'r', encoding='utf-8') as f:
+                raw_prompt = f.read()
+
+            template = Template(raw_prompt)
+            rendered_prompt = template.render(
+                description=prompt
+            )
+            
+            # Your existing Vertex AI code...
+            instances = [{"prompt": rendered_prompt}]
+            parameters = {
+                # "sampleCount": 1,
+                # "safetyFilterLevel": "block_some",
+                # "personGeneration": "allow_adult"
+            }
+            
+            response = llm.invoke(prompt)
+            
+            # Initialize Google Cloud Storage client
+            storage_client = storage.Client(project=self.project_id)
+            bucket_name = "attendance-262725"  # Use your existing bucket
+            bucket = storage_client.bucket(bucket_name)
+            
+            # print(response.predictions)
+            return None
+            
+        except Exception as e:
+            print(f"Error generating/uploading audio: {str(e)}")
+            return None
+    
+    def create_image_storage_bucket(self, prompt: str, section_name: str) -> Optional[str]:
+        """Generate image using Vertex AI and upload to Google Cloud Storage (UBLA compatible)"""
+        try:
+            from google.cloud import storage
+            
+            # Your existing Vertex AI code...
+            instances = [{"prompt": prompt}]
+            parameters = {
+                "sampleCount": 1,
+                "aspectRatio": "1:1",
+                "safetyFilterLevel": "block_some",
+                "personGeneration": "allow_adult"
+            }
+            
+            response = self.prediction_client.predict(
+                endpoint=self.image_endpoint,
+                instances=instances,
+                parameters=parameters
+            )
+            
+            # Initialize Google Cloud Storage client
+            storage_client = storage.Client(project=self.project_id)
+            bucket_name = "attendance-262725"  # Use your existing bucket
+            bucket = storage_client.bucket(bucket_name)
+            
+            # Process response and upload
+            for i, prediction in enumerate(response.predictions):
+                image_data = None
+                if "bytesBase64Encoded" in prediction:
+                    image_data = prediction["bytesBase64Encoded"]
+                elif "image" in prediction and "bytesBase64Encoded" in prediction["image"]:
+                    image_data = prediction["image"]["bytesBase64Encoded"]
+                
+                if image_data:
+                    # Decode image
+                    image_bytes = base64.b64decode(image_data)
+                    
+                    # Create unique blob name
+                    import time
+                    timestamp = int(time.time())
+                    filename_hash = hashlib.md5(prompt.encode()).hexdigest()[:8]
+                    blob_name = f"lesson-images/{section_name.replace(' ', '_').lower()}_{filename_hash}_{timestamp}.png"
+                    
+                    # Upload to Google Cloud Storage WITHOUT ACL operations
+                    blob = bucket.blob(blob_name)
+                    blob.upload_from_string(
+                        image_bytes,
+                        content_type='image/png'
+                    )
+                    
+                    # DO NOT call blob.make_public() - this uses ACLs
+                    # Instead, construct public URL directly
+                    public_url = f"https://storage.googleapis.com/{bucket_name}/{blob_name}"
+                    
+                    print(f"Generated image uploaded to: {public_url}")
+                    return public_url
+            
+            return None
+            
+        except Exception as e:
+            print(f"Error generating/uploading image: {str(e)}")
+            return None
+
     def generate_image(self, prompt: str, section_name: str) -> Optional[str]:
         """Generate image using Vertex AI Image Generation"""
         try:

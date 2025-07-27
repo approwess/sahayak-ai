@@ -1,11 +1,19 @@
 # app/services/visual_workflow_nodes.py
 from app.services.visual_document_generator import VisualDocumentGenerator
 from app.services.lesson_generator import AgentState
+from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
+from jinja2 import Template
 import re
 import os
+import json
 
 load_dotenv()
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash",
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 def should_generate_visuals(state: AgentState) -> str:
     """Determine if visual document should be generated"""
@@ -16,6 +24,74 @@ def should_generate_visuals(state: AgentState) -> str:
         return "generate_visuals"
     else:
         return "END"
+    
+def process_lesson_plan(state: AgentState) -> str:
+    base_url = "https://storage.googleapis.com/edu-resources/"
+    resources = state.get("resources", [])
+    for resource in resources:
+        resource_type = resource.get('type')
+        unique_id = resource.get('unique_id')
+        
+        if resource_type == 'image':
+            extension = '.jpg'
+        elif resource_type == 'audio':
+            extension = '.wav'
+        elif resource_type == 'video':
+            extension = '.mp4'
+        else:
+            extension = '' # Default for unknown types
+            
+        resource['url'] = f"{base_url}{unique_id}{extension}"
+
+    id_to_url_map = {resource['unique_id']: resource['url'] for resource in resources}
+    lesson_plan_text = state.get("lesson_plan_with_resource_mapping", "")
+    for unique_id, url in id_to_url_map.items():
+        placeholder = f"[Resource: {unique_id}]"
+        lesson_plan_text = lesson_plan_text.replace(placeholder, url)
+    state['lesson_plan'] = lesson_plan_text
+    return state
+
+def generate_resources(state: AgentState) -> AgentState:
+    if not state.get("lesson_plan"):
+        state["visual_generation_errors"] = ["No lesson plan available for visual generation"]
+        return state
+    
+    try:
+        prompt_path = os.path.join(os.path.dirname(__file__), 'prompts', 'generate_lesson_plan_resources.md')
+        with open(prompt_path, 'r', encoding='utf-8') as f:
+            raw_prompt = f.read()
+
+        template = Template(raw_prompt)
+        rendered_prompt = template.render(
+            lesson_plan=state.get("lesson_plan")
+        )
+        prompt = f"<pre>{rendered_prompt}</pre>"
+        # print(prompt)
+
+        response = llm.invoke(prompt)
+        # print(response.content)
+        # outer = json.loads(response.content)
+        # inner_content_raw = outer['content']
+
+        if response.content.startswith("```json"):
+            inner_content_raw = response.content
+            inner_content_raw = inner_content_raw.strip("```json").strip("```").strip()
+        lesson_data = json.loads(inner_content_raw)
+        # print(lesson_data)
+        
+        state["resources"] = lesson_data['resource_list']
+        state["lesson_plan_with_resource_mapping"] = lesson_data['lesson_plan']
+    except Exception as e:
+        print(str(e))
+
+    return state
+
+def generate_content(state: AgentState) -> AgentState:
+    generator = VisualDocumentGenerator(os.getenv("GOOGLE_API_KEY"),
+            project_id=os.getenv("GCP_PROJECT_ID"))
+    resources = generator.generate_content(state["resources"])
+    state["resources"] = resources
+    return state
 
 def extract_visual_requirements(state: AgentState) -> AgentState:
     """Extract image requirements from lesson plan"""

@@ -61,7 +61,9 @@ def generate_lesson():
                 "grades": grades,
                 "topic": topic,
                 "medium": medium,
-                "special_needs": special_needs
+                "special_needs": special_needs,
+                "resources": result["resources"],
+                "lesson_plan_with_resource_mapping": result["lesson_plan_with_resource_mapping"]
             }
         })
 
@@ -114,7 +116,9 @@ def generate_visual_lesson():
                 "topic": topic,
                 "medium": medium,
                 "special_needs": special_needs,
-                "visual_content_generated": bool(result.get("visual_document_path"))
+                "visual_content_generated": bool(result.get("visual_document_path")),
+                "lesson_plan_with_resource_mapping": result["lesson_plan_with_resource_mapping"],
+                "resources": result["resources"]
             }
         }
 

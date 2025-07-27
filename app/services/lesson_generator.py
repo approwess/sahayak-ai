@@ -7,12 +7,13 @@ from app.services.resource_finder import ResourceFinder
 from typing import TypedDict, Optional, List, Dict
 from jinja2 import Template
 import os
+import json
 
 load_dotenv()
 
 # Initialize Gemini
 llm = ChatGoogleGenerativeAI(
-    model="gemini-1.5-flash",
+    model="gemini-1.5-pro",
     google_api_key=os.getenv("GOOGLE_API_KEY")
 )
 
@@ -34,6 +35,9 @@ class AgentState(TypedDict):
     visual_generation_errors: Optional[List[str]]
     image_style: Optional[str]
     document_format: Optional[str]
+
+    resources: list  # Ensure this is included
+    lesson_plan_with_resource_mapping: str
 
 def determine_class_type(state: AgentState):
     """Determine if class is single or multigrade based on grades input"""
@@ -77,7 +81,16 @@ def generate_multigrade_lesson(state: AgentState):
             #     resources_text += f"  • {link['title']}: {link['url']} ({link['type']})\n"
     prompt = ""
     try:
-        prompt_path = os.path.join(os.path.dirname(__file__), 'prompts', 'multigrade_lesson_prompt.md')
+        # json_file_path = os.path.join(
+        #         os.path.dirname(__file__), 
+        #         '..', 'data', 'textbook_links.json'
+        #     )
+        json_file_paths = os.path.join(os.path.dirname(__file__), '../', 'data', 'child_assessment_1_2.json')
+        with open(json_file_paths, 'r', encoding='utf-8') as file:
+            learning_levels = json.load(file)
+
+        #prompt_path = os.path.join(os.path.dirname(__file__), 'prompts', 'multigrade_lesson_prompt.md')
+        prompt_path = os.path.join(os.path.dirname(__file__), 'prompts', 'generate_lesson_plan_resources_v2.md')
         with open(prompt_path, 'r', encoding='utf-8') as f:
             raw_prompt = f.read()
 
@@ -88,11 +101,11 @@ def generate_multigrade_lesson(state: AgentState):
             topic=topic,
             medium=medium,
             resources_text=resources_text,
-            learning_levels=[]
+            learning_levels=learning_levels
         )
         prompt = f"<pre>{rendered_prompt}</pre>"
 
-        # print("prompt" + prompt)
+        # print(prompt)
     except Exception as e:
         print("error" + str(e))
     
