@@ -425,8 +425,8 @@ class VisualDocumentGenerator:
             
             # Add actual image if available and it's a valid image file
             section_key = section_title.replace(' ', '_').lower()
-            print("Sections:", list(sections.keys()))
-            print("Image keys:", list(images.keys()))
+            # print("Sections:", list(sections.keys()))
+            # print("Image keys:", list(images.keys()))
             if section_key in images and images[section_key]:
                 image_path = images[section_key]
                 if Path(image_path).exists() and image_path.endswith(('.png', '.jpg', '.jpeg')):

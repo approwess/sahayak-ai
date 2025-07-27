@@ -38,6 +38,7 @@ class AgentState(TypedDict):
 
     resources: list  # Ensure this is included
     lesson_plan_with_resource_mapping: str
+    translation: str
 
 def determine_class_type(state: AgentState):
     """Determine if class is single or multigrade based on grades input"""

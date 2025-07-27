@@ -1,6 +1,187 @@
 {
   "resources": [
     {
+      "grade": 2,
+      "subject": "Marathi",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/201030001.pdf"
+    },
+    {
+      "grade": 2,
+      "subject": "Maths",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/201030004.pdf"
+    },
+    {
+      "grade": 2,
+      "subject": "Play,Do,Learn",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/201000620.pdf"
+    },
+    {
+      "grade": 2,
+      "subject": "English",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/203030035.pdf"
+    },
+    {
+      "grade": 1,
+      "subject": "Language",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/101030001.pdf"
+    },
+    {
+      "grade": 1,
+      "subject": "Maths",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/101030004.pdf"
+    },
+    {
+      "grade": 1,
+      "subject": "Play,Do,Learn",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/101000620.pdf"
+    },
+    {
+      "grade": 1,
+      "subject": "English",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/103030035.pdf"
+    },
+    {
+      "grade": 2,
+      "subject": "Language",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/201030001.pdf"
+    },
+    {
+      "grade": 2,
+      "subject": "Maths",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/201030004.pdf"
+    },
+    {
+      "grade": 2,
+      "subject": "Play,Do,Learn",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/201000620.pdf"
+    },
+    {
+      "grade": 2,
+      "subject": "English",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/203030035.pdf"
+    },
+    {
+      "grade": 3,
+      "subject": "Language",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/301020001.pdf"
+    },
+    {
+      "grade": 3,
+      "subject": "Maths",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/301020004.pdf"
+    },
+    {
+      "grade": 3,
+      "subject": "Play,Do,Learn",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/301000620.pdf"
+    },
+    {
+      "grade": 3,
+      "subject": "English",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/301020035.pdf"
+    },
+    {
+      "grade": 3,
+      "subject": "EVS",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/301000544.pdf"
+    },
+    {
+      "grade": 4,
+      "subject": "Language",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/401020001.pdf"
+    },
+    {
+      "grade": 4,
+      "subject": "Maths",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/401020004.pdf"
+    },
+    {
+      "grade": 4,
+      "subject": "Play,Do,Learn",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/401000620.pdf"
+    },
+    {
+      "grade": 4,
+      "subject": "English",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/401020035.pdf"
+    },
+    {
+      "grade": 4,
+      "subject": "EVS 1",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/401000541.pdf"
+    },
+    {
+      "grade": 4,
+      "subject": "EVS 2",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/401000542.pdf"
+    },
+    {
+      "grade": 5,
+      "subject": "Language",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/501020001.pdf"
+    },
+    {
+      "grade": 5,
+      "subject": "Maths",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/501020004.pdf"
+    },
+    {
+      "grade": 5,
+      "subject": "Play,Do,Learn",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/401000620.pdf"
+    },
+    {
+      "grade": 5,
+      "subject": "English",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/501020035.pdf"
+    },
+    {
+      "grade": 5,
+      "subject": "EVS 1",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/501000541.pdf"
+    },
+    {
+      "grade": 5,
+      "subject": "EVS 2",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/501000542.pdf"
+    },
+    {
+      "grade": 5,
+      "subject": "Hindi",
+      "medium": "Marathi",
+      "link": "https://ebooks.ebalbharati.in/pdfs/502020020.pdf"
+    },
+
+    {
       "grade": 1,
       "subject": "English",
       "medium": "English",

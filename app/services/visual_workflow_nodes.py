@@ -160,43 +160,43 @@ def normalize_section_key(title):
 
 def generate_visual_content(state: AgentState) -> AgentState:
     """Generate images and create visual document"""
-    if not state.get("image_requirements"):
-        state["visual_generation_errors"] = ["No image requirements found"]
-        return state
+    # if not state.get("image_requirements"):
+    #     state["visual_generation_errors"] = ["No image requirements found"]
+    #     return state
     
     try:
         generator = VisualDocumentGenerator(os.getenv("GOOGLE_API_KEY"),
             os.getenv("GCP_PROJECT_ID"))
         generated_images = {}
         
-        print(f"Generating images for {len(state['image_requirements'])} requirements...")
+        # print(f"Generating images for {len(state['image_requirements'])} requirements...")
         
-        # Generate images for each requirement
-        max_images = 3
-        for i, req in enumerate(state["image_requirements"]):
-            print(f"Generating image for: {req['section']}")
-            if i >= max_images:
-                break
-            image_path = generator.generate_image(req["prompt"], req["section"])
-            if image_path:
-                # section_key = req["section"].replace(' ', '_').lower()
-                section_key = normalize_section_key(req["section"])
-                generated_images[section_key] = image_path
-                print(f"Generated image: {image_path}")
-            else:
-                print(f"Failed to generate image for: {req['section']}")
+        # # Generate images for each requirement
+        # max_images = 3
+        # for i, req in enumerate(state["image_requirements"]):
+        #     print(f"Generating image for: {req['section']}")
+        #     if i >= max_images:
+        #         break
+        #     image_path = generator.generate_image(req["prompt"], req["section"])
+        #     if image_path:
+        #         # section_key = req["section"].replace(' ', '_').lower()
+        #         section_key = normalize_section_key(req["section"])
+        #         generated_images[section_key] = image_path
+        #         print(f"Generated image: {image_path}")
+        #     else:
+        #         print(f"Failed to generate image for: {req['section']}")
         
-        state["generated_images"] = generated_images
-        print(generated_images)
+        # state["generated_images"] = generated_images
+        # print(generated_images)
         
         # Create visual document
-        if generated_images:
-            doc_path = generator.create_visual_document(
-                state["lesson_plan"], 
-                generated_images
-            )
-            state["visual_document_path"] = doc_path
-            print(f"Created visual document: {doc_path}")
+        # if generated_images:
+        doc_path = generator.create_visual_document(
+            state["lesson_plan"], 
+            generated_images
+        )
+        state["visual_document_path"] = doc_path
+        print(f"Created visual document: {doc_path}")
         
     except Exception as e:
         state["visual_generation_errors"] = [f"Error generating visuals: {str(e)}"]

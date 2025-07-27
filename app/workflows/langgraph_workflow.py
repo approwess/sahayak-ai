@@ -10,7 +10,8 @@ from app.services.lesson_generator import (
 from app.services.visual_workflow_nodes import (
     generate_resources,
     generate_content,
-    process_lesson_plan
+    process_lesson_plan,
+    generate_visual_content
 )
 
 def create_workflow():
@@ -23,7 +24,7 @@ def create_workflow():
     
     # New visual generation nodes
     # graph.add_node("extract_requirements", extract_visual_requirements)
-    # graph.add_node("generate_visuals", generate_visual_content)
+    graph.add_node("generate_visuals", generate_visual_content)
 
     graph.add_node("generate_resources", generate_resources)
     #graph.add_node("generate_content", generate_content)
@@ -63,12 +64,13 @@ def create_workflow():
 
     graph.add_edge("single_professor", "generate_resources")
     graph.add_edge("multigrade_professor", "generate_resources")
+    graph.add_edge("generate_resources", "generate_visuals")
     
     # Visual workflow edges
     #graph.add_edge("generate_resources", "generate_content")
     #graph.add_edge("generate_content", "process_lesson_plan")
     #graph.add_edge("process_lesson_plan", END)  # This connects to the END node
-    graph.add_edge("generate_resources", END)  # This connects to the END node
+    graph.add_edge("generate_visuals", END)  # This connects to the END node
     
     return graph.compile()
 

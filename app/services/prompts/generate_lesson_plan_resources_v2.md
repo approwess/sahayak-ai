@@ -9,6 +9,7 @@ You understand the **Balbharati textbooks** and align all plans with **NEP 2020*
 - **Grade:** {{grades}}
 - **Subject:** {{subject}}
 - **Topic/Chapter Name:** {{topic}}
+- **Translation:** {{translation}}
 
 ---
 
@@ -41,7 +42,7 @@ Student Learning Levels: {{learning_levels}}
 Step 1A. Student Grouping by Learning Level
 Review the provided learning levels for each student.
 
-Sort and assign students into three instructional groups based on their “Maths Learning Level”:
+Sort and assign students into three instructional groups. If the selected Subject is Maths (regardless of medium), base the groups on the “Maths Learning Level”. For all other subjects, base the groups on the “Language Learning Level”.
 
 Beginner Group: Students marked as 'Beginner' (focus on building foundational concepts one at a time)
 
@@ -49,7 +50,7 @@ Intermediate Group: Students marked as 'Intermediate' (focus on applying and con
 
 Advanced Group: Students marked as 'Advanced' (focus on combining concepts and tackling challenging, creative tasks)
 
-When designing all 'Differentiated Practice' and 'Targeted Activities', clearly label them for each group and ensure group membership is based on the latest learning levels.
+When designing all 'Differentiated Practice' and 'Targeted Activities', clearly label them for each group and ensure group membership is based on the latest {{subject}} learning levels.
 
 For every lesson component (introductions, group activities, wrap-ups), incorporate differentiated instructions, supports, and expectations according to these established groups.
 

@@ -86,6 +86,7 @@ def generate_visual_lesson():
         include_images = data.get('include_images', True)
         image_style = data.get('image_style', 'cartoon')  # cartoon, realistic, simple
         document_format = data.get('document_format', 'docx')  # docx, pdf
+        translation = data.get('translation', '')
 
         if not all([subject, grades, topic, medium]):
             return jsonify({"error": "Missing required fields"}), 400
@@ -101,7 +102,8 @@ def generate_visual_lesson():
             "generate_visuals": True,  # Enable visual generation
             "image_style": image_style,
             "document_format": document_format,
-            "visual_generation_errors": []
+            "visual_generation_errors": [],
+            "translation": translation
         }
 
         result = workflow.invoke(initial_state)
@@ -118,7 +120,8 @@ def generate_visual_lesson():
                 "special_needs": special_needs,
                 "visual_content_generated": bool(result.get("visual_document_path")),
                 "lesson_plan_with_resource_mapping": result["lesson_plan_with_resource_mapping"],
-                "resources": result["resources"]
+                "resources": result["resources"],
+                "translation": translation
             }
         }
 
